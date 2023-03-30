@@ -149,18 +149,59 @@ p two_sum?(arr, 10) # => should be fa
 
 
 def my_window_max_1(array, w)
-
     current_max_range = nil 
-
     windows = []
 
     array.each_with_index do |ele, i|
-        if i + w < array.length - 1
+        if (i + w) <= array.length 
            windows << array[i...i+w] 
         end 
-
+        range = array[i...i+w].max - array[i...i+w].min
+        current_max_range = range if current_max_range == nil || current_max_range < range
     end 
-
-    return windows 
-
+    current_max_range
+   
 end 
+
+# arr = [1,2,3,5]
+# p my_window_max_1([1, 0, 2, 5, 4, 8], 2) == 4 # 4, 8
+# p my_window_max_1([1, 0, 2, 5, 4, 8], 3) == 5 # 0, 2, 5
+# p my_window_max_1([1, 0, 2, 5, 4, 8], 4) == 6 # 2, 5, 4, 8
+# p my_window_max_1([1, 3, 2, 5, 4, 8], 5) == 6 # 3, 2, 5, 4, 8
+
+class MyQueue
+    
+    def initialize
+        @store = []
+    end
+
+    def enqueue(window)
+        self.push(window)
+    end
+
+    def dequeue 
+        self.shift
+    end
+
+    def peek
+        self.first
+    end
+
+    def empty?
+        self.length == 0
+    end
+
+    def size
+        self.length
+    end
+
+
+
+end
+
+def window_max_range(array, window_size)
+    max_range = nil 
+    arr = []
+    array.each_with_index do |ele, i| 
+        arr.shift while !arr.empty? && arr.first <= i - window_size
+end
