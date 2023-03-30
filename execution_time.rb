@@ -146,3 +146,21 @@ p two_sum?(arr, 10) # => should be fa
 # p two_sum?(arr, 17)
 # p two_sum?(arr, -2)
 # p two_sum?(arr, 5025)
+
+
+def my_window_max_1(array, w)
+
+    current_max_range = nil 
+
+    windows = []
+
+    array.each_with_index do |ele, i|
+        if i + w < array.length - 1
+           windows << array[i...i+w] 
+        end 
+
+    end 
+
+    return windows 
+
+end 
