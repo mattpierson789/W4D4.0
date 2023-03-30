@@ -13,11 +13,8 @@ def my_min(list)
     smallest
 end
 
-
 def my_min2(list)
-
     smallest = 0 #constant
-
     list.each do |num| #linear (0n)
         list.each do |num2| #constant
             if num < num2 
@@ -28,40 +25,44 @@ def my_min2(list)
             end 
         end 
     end 
-
     return smallest 
-
 end 
 
-    list = [ 0, 3, 5, 4, -5, 10, 1, 90 ]
-    my_min(list)  # =>  -5
-
-
 def largest_contiguous_subsum(list)
-
     sum = list.first
-
     list.each_with_index do |num, i| 
         list.each_with_index do |num2, j|
-
-           
-
             curr_sum = list[i..j].sum
                 if sum < curr_sum && j >= i
                     sum = curr_sum
                 end 
-
-            
-
         end 
-
     end 
-
 sum 
-
 end 
 
+def largest_2(list)
+    largest = list.first
+    curr_sum = list.first
+    return list.max  if list.all? {|ele| ele <= 0 }
+    list[1..-1].each do |num|
+        curr_sum += num
+        if curr_sum < 0 
+            curr_sum = 0 && largest = 0
+        end
+        if curr_sum > largest 
+            largest = curr_sum
+        end
+    end
+    largest              
+end
+
+ list = [-5, -1, -3]
+p largest_2(list)
+
+
 # list = [5, 3, -7]
+# p largest_2(list)
 
 # p largest_contiguous_subsum(list) # => 8
 
@@ -78,5 +79,5 @@ end
 # p largest_contiguous_subsum(list) # => 8 (from [7, -6, 7])
 # # Example 3:
 
-    list = [-5, -1, -3]
-p largest_contiguous_subsum(list) # => -1 (from [-1])
+#     list = [-5, -1, -3]
+# p largest_contiguous_subsum(list) # => -1 (from [-1])
