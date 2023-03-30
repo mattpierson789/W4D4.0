@@ -81,3 +81,31 @@ p largest_2(list)
 
 #     list = [-5, -1, -3]
 # p largest_contiguous_subsum(list) # => -1 (from [-1])
+
+
+# Write a method #first_anagram? that will generate and store all the possible anagrams of the first string. Check if the second string is one of these.
+
+# Hints:
+
+# For testing your method, start with small input strings, otherwise you might wait a while
+# If you're having trouble generating the possible anagrams, look into this method.
+# What is the time complexity of this solution? What happens if you increase the size of the strings?
+
+def first_anagram?(string1, string2)
+    
+   string1.chars.permutation.map(&:join).include?(string2)
+
+end 
+
+p first_anagram?("gizmo", "sally")    #=> false
+p first_anagram?("elvis", "lives")    #=> true
+
+def second_anagram?(string1, string2)
+
+    string1.split(" ").each do |ele|
+        if string2.index(ele) != nil
+            string.delete(ele)
+        end 
+
+
+end 
