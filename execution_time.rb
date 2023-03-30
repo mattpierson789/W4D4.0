@@ -44,10 +44,10 @@ def largest_contiguous_subsum(list)
     list.each_with_index do |num, i| 
         list.each_with_index do |num2, j|
 
-            debugger
+           
 
             curr_sum = list[i..j].sum
-                if sum < curr_sum
+                if sum < curr_sum && j >= i
                     sum = curr_sum
                 end 
 
