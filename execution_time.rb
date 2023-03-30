@@ -57,55 +57,92 @@ def largest_2(list)
     largest              
 end
 
- list = [-5, -1, -3]
-p largest_2(list)
-
-
-# list = [5, 3, -7]
-# p largest_2(list)
-
-# p largest_contiguous_subsum(list) # => 8
-
-    # possible sub-sums
-    # [5]           # => 5
-    # [5, 3]        # => 8 --> we want this one
-    # [5, 3, -7]    # => 1
-    # [3]           # => 3
-    # [3, -7]       # => -4
-    # [-7]          # => -7
-# Example 2:
-
-#     list = [2, 3, -6, 7, -6, 7]
-# p largest_contiguous_subsum(list) # => 8 (from [7, -6, 7])
-# # Example 3:
-
-#     list = [-5, -1, -3]
-# p largest_contiguous_subsum(list) # => -1 (from [-1])
-
-
-# Write a method #first_anagram? that will generate and store all the possible anagrams of the first string. Check if the second string is one of these.
-
-# Hints:
-
-# For testing your method, start with small input strings, otherwise you might wait a while
-# If you're having trouble generating the possible anagrams, look into this method.
-# What is the time complexity of this solution? What happens if you increase the size of the strings?
-
 def first_anagram?(string1, string2)
     
    string1.chars.permutation.map(&:join).include?(string2)
 
 end 
 
-p first_anagram?("gizmo", "sally")    #=> false
-p first_anagram?("elvis", "lives")    #=> true
 
 def second_anagram?(string1, string2)
 
-    string1.split(" ").each do |ele|
-        if string2.index(ele) != nil
-            string.delete(ele)
-        end 
-
-
+    arr = string2.split("")
+    string1.split("").each do |ele|
+        arr.delete_if{|ele2| ele2 == ele}
+    end
+    if arr.empty? 
+        return true
+    else
+        false
+    end
 end 
+
+# p second_anagram?("gizmo", "sally")    #=> false
+# p second_anagram?("elvis", "lives")    #=> true
+
+def third_anagram?(string1, string2)
+    alphabet = ("a".."z").to_a
+    string1.chars.sort == string2.chars.sort
+end
+
+def fourth_anagram?(string1, string2)
+
+    hash = Hash.new(0)
+    string1.each_char do |char1| 
+        hash[char1] += 1
+    end
+
+    string2.each_char do |char2|
+        hash[char2] -= 1 
+    end
+
+    hash.values.all? {|v| v == 0}
+end
+
+def bad_two_sum?(arr, target_sum)
+    arr.each_with_index do |num, i| 
+        arr.each_with_index do |num2, j| 
+            if j > i && num + num2 == target_sum
+                return true 
+            end
+        end
+    end
+    false
+end
+
+def okay_two_sum?(arr, target_sum)
+    left = 0
+    right = arr.length - 1
+
+    while left < right
+        sum = (arr[left] + arr[right])  
+    
+        if sum == target_sum 
+            return true 
+        elsif sum > target_sum
+            right -= 1
+        else 
+            left += 1
+        end 
+    end
+    false
+end
+
+def two_sum?(arr, target_sum)
+    hash = Hash.new(0)
+    arr.each { |ele| hash[ele] = true}
+    arr.each_with_index do |num, i|
+
+        diff = target_sum - num
+       return true if hash[diff] == true  && diff != num
+    end
+    false
+end
+
+arr = [0, 1, 5, 7]
+p two_sum?(arr, 6) # => should be true
+p two_sum?(arr, 10) # => should be fa
+# p two_sum?(arr, 23)
+# p two_sum?(arr, 17)
+# p two_sum?(arr, -2)
+# p two_sum?(arr, 5025)
